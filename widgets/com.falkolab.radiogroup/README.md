@@ -23,6 +23,18 @@ First define your custom styles (see widget styles for example).
  		title="true" 
 	 	selected="2" />
 
+Item source (commonjs library):
+app/lib/radioSource.js
+
+	module.exports = function() {
+		return [
+			{value: "1", title:"A"},
+			{value: "2", title:"B"},
+			{value: "3", title:"C"}
+		];
+	}; 	 	
+
+
 #### Example #3	(Alloy >= 1.3)
 
 	<Alloy module="com.falkolab.radiogroup/tags">
@@ -35,16 +47,7 @@ First define your custom styles (see widget styles for example).
 		</Widget>
 	</Alloy>
 
-Item source commonjs library:
-app/lib/radioSource.js
-
-	module.exports = function() {
-		return [
-			{value: "1", title:"A"},
-			{value: "2", title:"B"},
-			{value: "3", title:"C"}
-		];
-	};  
+ 
 
 #### Any cases
 View controller:  
