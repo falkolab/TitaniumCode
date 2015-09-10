@@ -1,13 +1,22 @@
 # Radio group Widget
 ![screenshot1](screenshot1.png?raw=true "Example screenshot")
 
+## Quick Start
+
+### Get it 
+[![gitTio](http://gitt.io/badge.svg)](http://gitt.io/component/com.falkolab.radiogroup)
+
+Download this repository and consult the [Alloy Documentation](http://docs.appcelerator.com/titanium/latest/#!/guide/Alloy_XML_Markup-section-35621528_AlloyXMLMarkup-ImportingWidgets) on how to install it, or simply use the [gitTio CLI](http://gitt.io/cli):
+
+`$ gittio install com.falkolab.radiogroup`
+
 ## Usage
 
 First define your custom styles (see widget styles for example).
 
-### View use cases:
+### Use cases:
 
-#### Example #1
+#### Example #1 - inline data source
 
 	<Widget id="radioGroup" src="com.falkolab.radiogroup" 
  		items='["male", "female"]' 
@@ -15,7 +24,7 @@ First define your custom styles (see widget styles for example).
  		title="false" 
 	 	selected="male" />
 
-#### Example #2 	
+#### Example #2 - external data source
 
 	<Widget id="radioGroup" src="com.falkolab.radiogroup" 
  		generator="radioSource" 
@@ -23,8 +32,7 @@ First define your custom styles (see widget styles for example).
  		title="true" 
 	 	selected="2" />
 
-Item source (commonjs library):
-app/lib/radioSource.js
+Define your custom commonjs library at `app/lib/radioSource.js`:
 
 	module.exports = function() {
 		return [
@@ -35,7 +43,7 @@ app/lib/radioSource.js
 	}; 	 	
 
 
-#### Example #3	(Alloy >= 1.3)
+#### Example #3	(Alloy >= 1.3) - child tags
 
 	<Alloy module="com.falkolab.radiogroup/tags">
 		<Widget id="radioGroup" src="com.falkolab.radiogroup"		
@@ -49,7 +57,7 @@ app/lib/radioSource.js
 
  
 
-#### Any cases
+#### Controller code example
 View controller:  
 
 	$.radioGroup.on('changed', function(evt) {
@@ -65,4 +73,4 @@ View controller:
 		$.radioGroup.cleanup();
 	};
 	
-Give me the star if widget was usefull for you.
+Give me the a star if the widget was useful for you.
