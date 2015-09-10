@@ -1,0 +1,13 @@
+{
+	"id": "com.falkolab.radiogroup",
+	"name": "com.falkolab.radiogroup",
+	"description" : "Radio Group widget",	
+	"author": "Andrey Tkachenko",
+	"version": "1.0",
+	"copyright":"Copyright (c) 2015",
+	"license":"MIT",
+	"min-alloy-version": "1.2",
+	"min-titanium-version":"2.1",
+	"tags":"radio,radiogroup",
+	"platforms":"android,blackberry,ios,mobileweb,tizen"
+}

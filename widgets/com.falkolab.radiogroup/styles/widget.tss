@@ -1,0 +1,47 @@
+/*	classes:
+ 	
+	".falkolab-radio-container": { }
+	".falkolab-radio-item": { }
+	".falkolab-radio-icon": { touchEnabled: false }
+	".falkolab-radio-label": { touchEnabled: false }
+	
+	".falkolab-radio-icon-on": { image: '' }	
+	".falkolab-radio-icon-male": { image: '' }
+	".falkolab-radio-icon-male-on": { image: '' }
+	".falkolab-radio-icon-female": { image: '' }
+	".falkolab-radio-icon-female-on": { image: '' }
+	".falkolab-radio-label-on": { text: '', color: '' }
+	".falkolab-radio-label-male": { text: '', color: '' }
+	".falkolab-radio-label-male-on": { text: '', color: '' }
+	".falkolab-radio-label-female": { text: '', color: '' }
+	".falkolab-radio-label-female-on": { text: '', color: '' }
+*/
+
+/* example:
+".falkolab-radio-container": {
+	layout: "vertical",
+	height: Titanium.UI.SIZE
+}
+
+".falkolab-radio-item":  {  
+	layout: "horizontal",
+	height: 50
+}
+
+".falkolab-radio-icon":  { 
+	touchEnabled: false,
+	left: 15,
+	center: {x:0,y:"50%"},
+	image: "images/radio_icon_off.png" 
+}
+
+".falkolab-radio-label": { 
+	touchEnabled: false,
+	left: 10,
+	center: {x:0,y:"50%"}
+}
+
+".falkolab-radio-icon-on": {
+	image: "images/radio_icon_on.png"
+}
+ */
