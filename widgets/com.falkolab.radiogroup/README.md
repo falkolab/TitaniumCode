@@ -73,4 +73,4 @@ View controller:
 		$.radioGroup.cleanup();
 	};
 	
-Give me the a star if the widget was useful for you.
+Give me a star if the widget was useful for you.

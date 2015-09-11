@@ -1,23 +1,32 @@
 /*	classes:
  	
+ 	// core
 	".falkolab-radio-container": { }
 	".falkolab-radio-item": { }
 	".falkolab-radio-icon": { touchEnabled: false }
 	".falkolab-radio-label": { touchEnabled: false }
 	
-	".falkolab-radio-icon-on": { image: '' }	
-	".falkolab-radio-icon-male": { image: '' }
-	".falkolab-radio-icon-male-on": { image: '' }
-	".falkolab-radio-icon-female": { image: '' }
-	".falkolab-radio-icon-female-on": { image: '' }
-	".falkolab-radio-label-on": { text: '', color: '' }
-	".falkolab-radio-label-male": { text: '', color: '' }
-	".falkolab-radio-label-male-on": { text: '', color: '' }
-	".falkolab-radio-label-female": { text: '', color: '' }
-	".falkolab-radio-label-female-on": { text: '', color: '' }
+	// selected
+	".falkolab-radio-icon-on": { image: "" }
+	".falkolab-radio-label-on": { text: "", color: "" }
+	
+	// disabled
+	".falkolab-radio-icon-disabled": { image: "" }
+	".falkolab-radio-icon-on-disabled": { image: "" }
+	".falkolab-radio-label-disabled": {	color: "" }
+	".falkolab-radio-label-on-disabled": { color: "" }
+	
+	// optional	
+	".falkolab-radio-icon-male": { image: "" }	
+	".falkolab-radio-icon-female": { image: "" }		
+	".falkolab-radio-label-male": { text: "", color: "" }	
+	".falkolab-radio-label-female": { text: "", color: "" }
+	// and also all of this with suffix -on or -on-disabled
+	
 */
 
 /* example:
+
 ".falkolab-radio-container": {
 	layout: "vertical",
 	height: Titanium.UI.SIZE
@@ -44,4 +53,24 @@
 ".falkolab-radio-icon-on": {
 	image: "images/radio_icon_on.png"
 }
- */
+
+".falkolab-radio-icon-on": {
+	image: "images/radio_icon_on.png"
+}
+
+".falkolab-radio-icon-disabled": {
+	image: "images/radio_icon_off_disabled.png" 
+}
+
+".falkolab-radio-icon-on-disabled": {
+	image: "images/radio_icon_on_disabled.png"
+}
+
+".falkolab-radio-label-disabled": {
+	color: "#b0b0b0"
+}
+
+".falkolab-radio-label-on-disabled": {
+	color: "#b0b0b0"
+}
+*/

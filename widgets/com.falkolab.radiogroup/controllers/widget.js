@@ -1,4 +1,8 @@
-var selectedValue, defaultValue, cpfx = "falkolab-";
+var selectedValue, 
+	defaultValue,
+	isDisabled = false,
+	cpfx = "falkolab-";
+	
 init(arguments[0] || {});
 
 /*
@@ -60,9 +64,7 @@ $.radioGroup.on('changed', function(evt) {
 exports.cleanup = function() {
 	$.radioGroup.cleanup();
 };
-
-*/
- 
+*/ 
 
 function createClasses(element, id) {
 	var classes = ['radio-'+element, 'radio-'+element+'-' + id];	
@@ -73,10 +75,17 @@ function createClassesOn(element, id) {
 	return _.map(createClasses(element,id), function(cls) {return cls+'-on';});
 }
 
+function createClassesDisabled(element, id, selected) {
+	var fn = selected ? createClassesOn : createClasses; 
+	return _.map(fn(element,id), function(cls) {return cls+'-disabled';});
+}
+
 function init(args) {
 	var items,		
 		useIcon   = args.icon === 'true' || args.icon === true,
 		useTitle  = args.title === 'true' || args.title === true;
+	
+	isDisabled = args.disable === 'true' || args.disable === true;
 	
 	if(_.isString(args.classPrefix)) {
 		$.removeClass($.widget, cpfx+'radio-container');	
@@ -130,15 +139,18 @@ function init(args) {
 	
 	defaultValue = selectedValue;	
 	
+	setDisable(isDisabled);
+	
 	$.widget.applyProperties(_.omit(args, "icon", "title", "value", "children", "id"));	
 };
 
 function toggleRadio(evt) {	
+	if(isDisabled) return;
 	$.value = evt.source.dataId;
 }
 
 /**
- * Property for set or get current value
+ * Property for manage current value
  */
 Object.defineProperty($, "value", {
     set : setValue,
@@ -146,8 +158,16 @@ Object.defineProperty($, "value", {
 });
 
 /**
+ * Property for manage disabled state
+ */
+Object.defineProperty($, "disable", {
+    set : setDisable,
+    get : getDisable
+});
+
+/**
  * Get selected item value
- * @return {String} result Selected item value
+ * @return {String} Selected item value
  */
 function getValue() {
 	return selectedValue || null;
@@ -186,6 +206,27 @@ function setValue(value, silent) {
 };
 
 /**
+ * Get disabled state value
+ * @return {Boolean} disabled state
+ */
+function getDisable() {
+	return isDisabled;
+}
+
+function setDisable(value) {
+	var fn = value ? $.addClass: $.removeClass;	
+	var view;
+	for(var i=0,l=$.widget.children.length;i<l;i++) {
+		view = $.widget.children[i];
+		fn(view.children[0], createClassesDisabled('icon', value, view.dataId == selectedValue));
+		view.children.length>1 && fn(view.children[1], createClassesDisabled('label', value, view.dataId == selectedValue));
+	}
+	fn = null;
+	view = null;
+	isDisabled = value;
+}
+
+/**
  * Reset widget to initial state
  * @param {Boolean} silent Silently reset widget state by default
  */
@@ -195,6 +236,8 @@ function reset(silent) {
 
 exports.setValue = setValue;
 exports.getValue = getValue;
+exports.setDisable = setDisable;
+exports.getDisable = getDisable;
 exports.init = init;
 exports.reset = reset; 
 
