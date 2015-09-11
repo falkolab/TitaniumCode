@@ -1,0 +1,33 @@
+{
+  "version": "1.1.0",
+  "appc-npm": {
+    "config": {
+      "com.falkolab.radiogroup": "1.1.0"
+    },
+    "target": {
+      "alloy": "app/widgets/com.falkolab.radiogroup"
+    },
+    "ignore": [
+      "package.json"
+    ]
+  },
+  "description": "Radio Group widget",
+  "author": "Andrey Tkachenko",
+  "license": "MIT",
+  "name": "com.falkolab.radiogroup",
+  "keywords": [
+    "alloy",
+    "alloy-widget",
+    "appc-npm",
+    "appcelerator",
+    "radio",
+    "radiogroup"
+  ],
+  "scripts": {
+    "postinstall": "node ./appc-npm"
+  },
+  "bugs": {
+    "url": "https://github.com/falkolab/TitaniumCode/issues"
+  },
+  "homepage": "https://github.com/falkolab/TitaniumCode/tree/master/widgets/com.falkolab.radiogroup"
+}
