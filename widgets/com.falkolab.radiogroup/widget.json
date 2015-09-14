@@ -3,7 +3,7 @@
 	"name": "com.falkolab.radiogroup",
 	"description" : "Radio Group widget",	
 	"author": "Andrey Tkachenko",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"copyright":"Copyright (c) 2015",
 	"license":"MIT",
 	"min-alloy-version": "1.2",

@@ -29,17 +29,21 @@
 
 ".falkolab-radio-container": {
 	layout: "vertical",
-	height: Titanium.UI.SIZE
+	height: Titanium.UI.SIZE,
+	width: Titanium.UI.SIZE	
 }
 
 ".falkolab-radio-item":  {  
 	layout: "horizontal",
-	height: 50
+	height: 50,
+	left: 0,
+	width: Titanium.UI.SIZE
 }
 
 ".falkolab-radio-icon":  { 
 	touchEnabled: false,
 	left: 15,
+	width: Titanium.UI.SIZE,
 	center: {x:0,y:"50%"},
 	image: "images/radio_icon_off.png" 
 }
@@ -47,11 +51,8 @@
 ".falkolab-radio-label": { 
 	touchEnabled: false,
 	left: 10,
+	width: Titanium.UI.SIZE,
 	center: {x:0,y:"50%"}
-}
-
-".falkolab-radio-icon-on": {
-	image: "images/radio_icon_on.png"
 }
 
 ".falkolab-radio-icon-on": {

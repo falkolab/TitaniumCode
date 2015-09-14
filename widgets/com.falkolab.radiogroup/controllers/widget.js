@@ -1,168 +1,177 @@
-var selectedValue, 
-	defaultValue,
-	isDisabled = false,
-	cpfx = "falkolab-";
-	
+var selectedValue,
+    defaultValue,
+    isDisabled = false,
+    itemControllers = [],
+    items,
+    cpfx = "falkolab-radio-";
+
 init(arguments[0] || {});
 
 /*
  Usage:
- 
-//******************
-// First define your custom styles (see widget styles for example)
 
-// View usecases:
+ //******************
+ // First define your custom styles (see widget styles for example)
 
-// Case #1
-<Widget id="radioGroup" src="com.falkolab.radiogroup" 
- 	items='["male", "female"]' 
- 	icon="true" 
- 	title="false" 
- 	selected="male" />
+ // View usecases:
 
-// Case #2 	
-<Widget id="radioGroup" src="com.falkolab.radiogroup" 
- 	generator="radioSource" 
- 	icon="true" 
- 	title="true" 
- 	selected="2" />
+ // Case #1
+ <Widget id="radioGroup" src="com.falkolab.radiogroup"
+ items='["male", "female"]'
+ icon="true"
+ title="false"
+ selected="male" />
 
-// Case #3 	(Alloy >= 1.3)
-<Alloy module="com.falkolab.radiogroup/tags">
-	<Widget id="radioGroup" src="com.falkolab.radiogroup"		
-		icon="true" 
-		title="true" 
-		selected="blackList">				
-			<Radio value="blackList" title="L('option1')"/>
-			<Radio value="whiteList" title="L('option2')"/>				
-	</Widget>
-</Alloy>
+ // Case #2
+ <Widget id="radioGroup" src="com.falkolab.radiogroup"
+ generator="radioSource"
+ icon="true"
+ title="true"
+ selected="2" />
 
-//******************  
-// app/lib/radioSource.js
+ // Case #3 	(Alloy >= 1.3)
+ <Alloy module="com.falkolab.radiogroup/tags">
+ <Widget id="radioGroup" src="com.falkolab.radiogroup"
+ icon="true"
+ title="true"
+ selected="blackList">
+ <Radio value="blackList" title="L('option1')"/>
+ <Radio value="whiteList" title="L('option2')"/>
+ </Widget>
+ </Alloy>
 
-module.exports = function() {
-	return [
-		{value: "1", title:"A"},
-		{value: "2", title:"B"},
-		{value: "3", title:"C"}
-	];
-};  
+ //******************
+ // app/lib/radioSource.js
 
-//******************
-// View controller:  
+ module.exports = function() {
+ return [
+ {value: "1", title:"A"},
+ {value: "2", title:"B"},
+ {value: "3", title:"C"}
+ ];
+ };
 
-$.radioGroup.on('changed', function(evt) {
-	Ti.API.info("'changed' event", JSON.stringify(evt));
-	Ti.API.info("Selected value", this.getValue());
-	_.delay(function(widgetCtrl) {
-		Ti.API.info('Reset to default after 2 sec');
-		widgetCtrl.reset();
-	}, 2000, this);
-});
+ //******************
+ // View controller:
 
-exports.cleanup = function() {
-	$.radioGroup.cleanup();
-};
-*/ 
+ $.radioGroup.on('changed', function(evt) {
+ Ti.API.info("'changed' event", JSON.stringify(evt));
+ Ti.API.info("Selected value", this.getValue());
+ _.delay(function(widgetCtrl) {
+ Ti.API.info('Reset to default after 2 sec');
+ widgetCtrl.reset();
+ }, 2000, this);
+ });
 
-function createClasses(element, id) {
-	var classes = ['radio-'+element, 'radio-'+element+'-' + id];	
-	return _.map(classes, function(cls) {return cpfx+cls;});	
-}
-
-function createClassesOn(element, id) {
-	return _.map(createClasses(element,id), function(cls) {return cls+'-on';});
-}
-
-function createClassesDisabled(element, id, selected) {
-	var fn = selected ? createClassesOn : createClasses; 
-	return _.map(fn(element,id), function(cls) {return cls+'-disabled';});
-}
+ exports.cleanup = function() {
+ $.radioGroup.cleanup();
+ };
+ */
 
 function init(args) {
-	var items,		
-		useIcon   = args.icon === 'true' || args.icon === true,
-		useTitle  = args.title === 'true' || args.title === true;
-	
-	isDisabled = args.disable === 'true' || args.disable === true;
-	
-	if(_.isString(args.classPrefix)) {
-		$.removeClass($.widget, cpfx+'radio-container');	
-		cpfx = args.classPrefix;	
-	}
-	$.addClass($.widget, cpfx+'radio-container');
+	var itemArgs = {
+		useIcon : args.icon === 'true' || args.icon === true,
+		useTitle : args.title === 'true' || args.title === true,
+		isDisabled : args.disable === 'true' || args.disable === true
+	};
 
-	$.widget.removeAllChildren();	
-	
-	if(_.isString(args.generator)) {		
-		items = require(args.generator)();				
+	if (args.classPrefix) {
+		Ti.API.warn("Option classPrefix is deprecated use classesPrefix instad");
 	}
-	
-	if(_.isUndefined(items) && _.isString(args.items)) {
-		items = JSON.parse(args.items);	
-	}	
-	
-	if(_.isUndefined(items) && args.children && args.children.length) {
-		items = args.children[0].items||args.children||[];
+
+	// classes prefix
+	var newPrefix = args.classPrefix || args.classesPrefix;
+	if (_.isString(newPrefix) && newPrefix !== cpfx) {
+		$.removeClass($.widget, cpfx + 'container');
+		cpfx = newPrefix;
 	}
-	
-	!_.isArray(items) && (items = []);
-	
+	$.addClass($.widget, cpfx + 'container');
+	itemArgs.classesPrefix = cpfx;
+
+	cleanupItems();
+
+	if (_.isString(args.generator)) {
+		items = require(args.generator)();
+	}
+
+	if (_.isUndefined(items) && _.isString(args.items)) {
+		items = JSON.parse(args.items);
+	}
+
+	if (_.isUndefined(items) && args.children && args.children.length) {
+		items = args.children[0].items || args.children || [];
+	}
+
+	!_.isArray(items) && ( items = []);
+
 	items = _.map(items, function(v) {
-		return _.isObject(v)? v: {value: v};
+		return _.isObject(v) ? v : {
+			value : v
+		};
 	});
 
-	for(var i=0,l=items.length; i<l; i++){			
-		var id = items[i].value,
-			title =	items[i].title || "";
-			
-		if(!_.isString(id)) {
-			Ti.API.warn("'value' property of item must be string!");
-			id = _.isObject(id) && _.isFunction(id.toString)? id.toString() : id + "";
-		}			
-	  	
-	  	var radio = $.UI.create('View', { classes: cpfx+'radio-item', dataId: id });
-	  	  		
-  		useIcon  && radio.add( $.UI.create('ImageView', { classes: createClasses('icon', id), autoStyle: true}) );
-  		
-	  	if(useTitle) {
-	  		var opts = { classes: createClasses('label', id), autoStyle: true};
-	  		!_.isUndefined(title) && _.extend(opts, {text:title});
-	  		
-	  	 	radio.add( $.UI.create('Label', opts));			  	 	
-	  	 }
-	  	$.widget.add(radio);		  	
+	for (var i = 0,
+	    l = items.length; i < l; i++) {
+		var ctrl,
+		    ctrlArgs = _.extend(_.clone(itemArgs), {
+			item : items[i]
+		});
+
+		if (_.isString(args.itemController)) {
+			ctrl = Alloy.createController(args.itemController, ctrlArgs);
+		} else {
+			ctrl = Widget.createController('item', ctrlArgs);
+		}
+
+		$.widget.add(ctrl.getView());
+		itemControllers.push(ctrl);
+		ctrl.on('toggle', toggleRadio);
+		ctrl = null;
+		ctrlArgs = null;
 	};
-	
-	setValue((_.isUndefined(args.selected) ? (items.length && items[0].value): args.selected), true);	
-	
-	defaultValue = selectedValue;	
-	
+
+	setValue((_.isUndefined(args.selected) ? (items.length && items[0].value) : args.selected), true);
+
+	defaultValue = selectedValue;
+
 	setDisable(isDisabled);
-	
-	$.widget.applyProperties(_.omit(args, "icon", "title", "value", "children", "id"));	
+
+	$.widget.applyProperties(_.omit(args, "icon", "title", "value", "children", "id"));
 };
 
-function toggleRadio(evt) {	
-	if(isDisabled) return;
-	$.value = evt.source.dataId;
+function cleanupItems() {
+	for (var i = 0,
+	    l = itemControllers.length; i < l; i++) {
+		var ctrl = itemControllers[i];
+		ctrl.off('toggle', toggleRadio);
+		_.isFunction(ctrl.cleanup) && ctrl.cleanup();
+		ctrl = null;
+	}
+	itemControllers.length = 0;
+	$.widget.removeAllChildren();
+	items = null;
+}
+
+function toggleRadio(evt) {
+	if (isDisabled)
+		return;
+	$.value = evt.value;
 }
 
 /**
  * Property for manage current value
  */
 Object.defineProperty($, "value", {
-    set : setValue,
-    get : getValue
+	set : setValue,
+	get : getValue
 });
 
 /**
  * Property for manage disabled state
  */
 Object.defineProperty($, "disable", {
-    set : setDisable,
-    get : getDisable
+	set : setDisable,
+	get : getDisable
 });
 
 /**
@@ -179,30 +188,23 @@ function getValue() {
  * @param {Boolean} silent When true widget will not trigger 'changed' event
  */
 function setValue(value, silent) {
-	if(selectedValue == value) return;
-	
-	var view;
-	if(!(_.isUndefined(selectedValue) || _.isNull(selectedValue))) {		
-		view = _.findWhere($.widget.children, {dataId: selectedValue});
-		if(view) {
-			$.removeClass(view.children[0], createClassesOn('icon', selectedValue));
-			view.children.length>1 && $.removeClass(view.children[1], createClassesOn('label', selectedValue));
-		} 		
+	if (selectedValue == value)
+		return;
+
+	for (var i = 0,
+	    l = items.length; i < l; i++) {
+		var isSelected = items[i].value == value;
+		itemControllers[i].setSelected(isSelected);
+		if (isSelected) {
+			var old = selectedValue;
+			selectedValue = value;
+			!silent && $.trigger('changed', {
+				oldValue : old,
+				newValue : selectedValue
+			});
+		}
 	}
-	
-	if(!(_.isUndefined(value) || _.isNull(value))) {
-		view = _.findWhere($.widget.children, {dataId: value});		
-		if(view) {
-			$.addClass(view.children[0], createClassesOn('icon', value));
-			view.children.length>1 && $.addClass(view.children[1], createClassesOn('label', value));
-		} 		
-	}
-	
-	view = null;	
-	
-	var old = selectedValue;
 	selectedValue = value;
-	!silent && $.trigger('changed', {oldValue:old, newValue: selectedValue});	
 };
 
 /**
@@ -214,16 +216,11 @@ function getDisable() {
 }
 
 function setDisable(value) {
-	var fn = value ? $.addClass: $.removeClass;	
-	var view;
-	for(var i=0,l=$.widget.children.length;i<l;i++) {
-		view = $.widget.children[i];
-		fn(view.children[0], createClassesDisabled('icon', value, view.dataId == selectedValue));
-		view.children.length>1 && fn(view.children[1], createClassesDisabled('label', value, view.dataId == selectedValue));
+	for (var i = 0,
+	    l = items.length; i < l; i++) {
+		itemControllers[i].setDisabled(!!value);
 	}
-	fn = null;
-	view = null;
-	isDisabled = value;
+	isDisabled = !!value;
 }
 
 /**
@@ -231,7 +228,7 @@ function setDisable(value) {
  * @param {Boolean} silent Silently reset widget state by default
  */
 function reset(silent) {
-	!_.isUndefined(defaultValue) && setValue(defaultValue, _.isUndefined(silent)?true:silent);
+	!_.isUndefined(defaultValue) && setValue(defaultValue, _.isUndefined(silent) ? true : silent);
 };
 
 exports.setValue = setValue;
@@ -239,11 +236,12 @@ exports.getValue = getValue;
 exports.setDisable = setDisable;
 exports.getDisable = getDisable;
 exports.init = init;
-exports.reset = reset; 
+exports.reset = reset;
 
 /**
  * Cleanup (destructor)
  */
 exports.cleanup = function() {
+	cleanupItems();
 	this.off();
 };

@@ -12,6 +12,20 @@ Download this repository and consult the [Alloy Documentation](http://docs.appce
 
 ## Usage
 
+### Properties
+* `useIcon` _(Boolean)_ - Render item icon
+* `useTitle` _(Boolean)_ - Render item title
+* `classesPrefix` _(String)_ - Your custom prefix for widget classes
+* `disable` _(Boolean)_ - Initial disabled state
+* `itemController` _(String)_ - Custom item controller (see widget_root/controllers/items as starting point)
+
+**Source for items:**
+
+* `items` _(Array)_ - Array of radiogroup items: `{value:"...", title:"..."}`
+* or `generator` _(String)_ - Commonjs module as items generator
+* or `children` _(Array)_ - Custom tags (see widget_root/lib/tags and example below)
+ 
+
 First define your custom styles (see widget styles for example).
 
 ### Use cases:

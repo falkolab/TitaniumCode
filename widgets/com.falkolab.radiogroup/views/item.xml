@@ -1,0 +1,6 @@
+<Alloy>
+	<View onClick="toggleRadio">
+		<ImageView id="icon" if="$.args.useIcon" autoStyle="true" />
+		<Label id="label" if="$.args.useTitle" autoStyle="true" />
+	</View>
+</Alloy>
