@@ -10,9 +10,7 @@ if (!_.isString(id)) {
 	id = _.isObject(id) && _.isFunction(id.toString) ? id.toString() : id + "";
 }
 
-$.addClass($.item, args.classesPrefix + 'item', {
-	dataId : id
-});
+$.addClass($.item, args.classesPrefix + 'item');
 
 $.icon && $.addClass($.icon, createClasses('icon', id));
 $.label && $.addClass($.label, createClasses('label', id), {

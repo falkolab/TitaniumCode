@@ -113,12 +113,15 @@ function init(args) {
 	for (var i = 0,
 	    l = items.length; i < l; i++) {
 		var ctrl,
+			item = items[i],
 		    ctrlArgs = _.extend(_.clone(itemArgs), {
-			item : items[i]
+			item : item
 		});
+		
+		var customController = item.controller || args.itemController;
 
-		if (_.isString(args.itemController)) {
-			ctrl = Alloy.createController(args.itemController, ctrlArgs);
+		if (_.isString(customController)) {
+			ctrl = Alloy.createController(customController, ctrlArgs);
 		} else {
 			ctrl = Widget.createController('item', ctrlArgs);
 		}
@@ -128,6 +131,7 @@ function init(args) {
 		ctrl.on('toggle', toggleRadio);
 		ctrl = null;
 		ctrlArgs = null;
+		item = null;
 	};
 
 	setValue((_.isUndefined(args.selected) ? (items.length && items[0].value) : args.selected), true);

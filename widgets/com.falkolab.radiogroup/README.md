@@ -21,7 +21,7 @@ Download this repository and consult the [Alloy Documentation](http://docs.appce
 
 **Source for items:**
 
-* `items` _(Array)_ - Array of radiogroup items: `{value:"...", title:"..."}`
+* `items` _(Array)_ - Array of radiogroup items with keys: `value`, `title` (optional), `controller` (optional)
 * or `generator` _(String)_ - Commonjs module as items generator
 * or `children` _(Array)_ - Custom tags (see widget_root/lib/tags and example below)
  
