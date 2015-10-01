@@ -6,6 +6,8 @@
 ### Get it 
 [![gitTio](http://gitt.io/badge.svg)](http://gitt.io/component/com.falkolab.radiogroup)
 
+<a href='https://pledgie.com/campaigns/30287'><img alt='Click here to lend your support to: com.falkolab.radiogroup and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/30287.png?skin_name=chrome' border='0' ></a>
+
 Download this repository and consult the [Alloy Documentation](http://docs.appcelerator.com/titanium/latest/#!/guide/Alloy_XML_Markup-section-35621528_AlloyXMLMarkup-ImportingWidgets) on how to install it, or simply use the [gitTio CLI](http://gitt.io/cli):
 
 `$ gittio install com.falkolab.radiogroup`
@@ -87,4 +89,6 @@ View controller:
 		$.radioGroup.cleanup();
 	};
 	
-Give me a star if the widget was useful for you.
+Give me a star if the widget was useful for you or
+
+<a href='https://pledgie.com/campaigns/30287'><img alt='Click here to lend your support to: com.falkolab.radiogroup and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/30287.png?skin_name=chrome' border='0' ></a>
