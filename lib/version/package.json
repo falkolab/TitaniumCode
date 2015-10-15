@@ -1,0 +1,30 @@
+{
+    "name": "falkolab-version",
+    "version": "1.0.0",
+    "description": "Android version helper commonjs module for Titanium SDK",
+    "titaniumManifest": {
+        "name": "falkolab-version",
+        "guid": "253d3b18-167a-6ab4-6078-f338cb1d44cd",
+        "moduleid": "com.falkolab.version"
+    },
+    "main": "./version.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/falkolab/TitaniumCode/lib/version"
+    },
+    "keywords": [
+        "titanium",
+        "titaniumified",
+        "android",
+        "version"
+    ],
+    "author": {
+        "name": "Andrey Tkachenko",
+        "email": "falko.lab@gmail.com"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "grunt": "^0.4.5",
+        "grunt-titaniumifier": "^1.1.0"
+    }
+}
