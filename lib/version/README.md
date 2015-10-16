@@ -12,7 +12,7 @@ With **npm** for **Node.js** and **io.js** you can easily install it with
 
 With **gitTio** for  **Titanium SDK** you can easily install it with
 
-    $ gittio install falkolab-version
+    $ gittio install com.falkolab.version
 
 To download the module for [manual install][mi] (e.g. through *Appcelerator Studio*).
 
