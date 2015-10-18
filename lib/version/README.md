@@ -22,6 +22,17 @@ To download the module for [manual install][mi] (e.g. through *Appcelerator Stud
 
 You can use this module in both Classic or Alloy projects.
 
+This module exports auto generated constants and function:
+
+`function versionCompare(left, right)` - Compares two string version values.
+
+_Returns:_
+
+    -1 = left is LOWER than right
+    0 = they are equal
+    1 = left is GREATER = right is LOWER
+    And FALSE if one of input versions are not valid
+
 ### Alloy usage
 
 

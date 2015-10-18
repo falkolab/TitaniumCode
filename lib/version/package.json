@@ -1,6 +1,6 @@
 {
     "name": "falkolab-version",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Android version helper commonjs module for Titanium SDK",
     "titaniumManifest": {
         "name": "falkolab-version",
